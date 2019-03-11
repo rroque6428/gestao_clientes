@@ -1,0 +1,10 @@
+{% load my_tags %}
+
+{% current_time "%Y-%m-%d %I:%M %p" as the_time %}
+
+<footer class="footer">
+  <div class="container">
+    {# Using previously created TAG #}
+    <span class="text-muted">{{ minha_var }} - {{ the_time }}</span>
+  </div>
+</footer>

@@ -1,0 +1,6 @@
+<h1>{{ person.last_name }}, {{ person.first_name }}</h1>
+<br><br>
+
+<a href="{% url 'person_update_cbv' person.id %}">Atualizar</a><br>
+<a href="{% url 'person_delete_cbv' person.id %}">Apagar</a><br>
+<a href="{% url 'person_list_cbv' %}">Listagem completa</a>

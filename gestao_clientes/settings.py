@@ -27,7 +27,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['gestao-clientes2.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['gestao-clientes2.herokuapp.com', 'localhost', '192.168.78.183']  # IP of the servers
+
+INTERNAL_IPS = ['127.0.0.1', '192.168.78.1']  # DEBUG TOOLBAR Setup (ip of allowed clients)
 
 # Application definition
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'clientes',
     'home',
+    'debug_toolbar',  # DEBUG_TOOLBAR Setup (must come last)
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # DEBUG_TOOLBAR Setup
 ]
 
 ROOT_URLCONF = 'gestao_clientes.urls'
@@ -136,6 +140,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
+# TODO: Check the purpose of the below vars
 # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 # AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 # AWS_STORAGE_BUCKET_NAME = 'gestao-clientes'
