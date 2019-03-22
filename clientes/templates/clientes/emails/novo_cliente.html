@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,18 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'stick-footer.css' %}">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Email de Boas Vindas</title>
 </head>
 <body>
     <div class="container">
         <div class="jumbotron">
-            {% block main %}
-            {% endblock %}
+            Olá {{ nome }}
         </div>
     </div>
-    {% block footer %}
-    {% endblock %}
 </body>
 </html>

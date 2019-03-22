@@ -1,6 +1,7 @@
 from django.utils import timezone
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 
 from django.views.generic.list import ListView
@@ -16,7 +17,12 @@ class PersonList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['now'] = timezone.now()
+        context['ja_acessou'] = self.request.session.get('ja_acessou', False)
+
+        self.request.session['ja_acessou'] = True
+
         return context
 
 
@@ -24,10 +30,11 @@ class PersonDetail(DetailView):
     model = Person
 
 
-class PersonCreate(CreateView):
+class PersonCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Person
     fields = '__all__'
     success_url = reverse_lazy('person_list_cbv')
+    permission_required = ('clientes.add_person',)
 
 
 class PersonUpdate(UpdateView):
@@ -53,6 +60,9 @@ def persons_list(request):
 
 @login_required
 def persons_new(request):
+    if not request.user.has_perm('clientes.add_person'):
+        return HttpResponse('Não autorizado')
+
     form = PersonForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():

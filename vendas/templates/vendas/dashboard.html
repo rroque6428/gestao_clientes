@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>Dashboard</h1>
+    <br>
+    <ul>
+        <li>Quantidade de Vendas: {{ qtd_vendas }}</li>
+        <li>Total de Vendas: {{ total_vendas }}</li>
+        <li>Média: {{ media }}</li>
+        <li>Média de Descontos: {{ media_desconto }}</li>
+        <li>Menor Venda: {{ venda_min }}</li>
+        <li>Maior Venda: {{ venda_max }}</li>
+        <li>Media: {{ media }}</li>
+        <li>Pedidos com Nfe: {{ num_ped_nfe }}</li>
+    </ul>
+{% endblock %}

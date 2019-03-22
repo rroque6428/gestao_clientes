@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['gestao-clientes2.herokuapp.com', 'localhost', '192.168.78.183']  # IP of the servers
+ALLOWED_HOSTS = ['gestao-clientes2.herokuapp.com', 'localhost', '192.168.78.132']  # IP of the servers
 
 INTERNAL_IPS = ['127.0.0.1', '192.168.78.1']  # DEBUG TOOLBAR Setup (ip of allowed clients)
 
@@ -40,9 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # Required by django-allauth
     'bootstrapform',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
     'clientes',
     'home',
+    'vendas',
+    'produtos',
     'debug_toolbar',  # DEBUG_TOOLBAR Setup (must come last)
 ]
 
@@ -55,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # DEBUG_TOOLBAR Setup
+    'mymiddlewares.metadata.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'gestao_clientes.urls'
@@ -139,6 +150,24 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+SERVER_EMAIL = config('SERVER_EMAIL')
+
+ADMINS = [('Roque', 'rroque6428@terra.com.br'), ('Roque 02', 'roque@gmonegps.com')]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
 
 # TODO: Check the purpose of the below vars
 # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
