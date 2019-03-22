@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['gestao-clientes2.herokuapp.com', 'localhost', '192.168.78.132']  # IP of the servers
+ALLOWED_HOSTS = ['roque-django-adv.herokuapp.com', 'localhost', '192.168.78.132']  # IP of the servers
 
 INTERNAL_IPS = ['127.0.0.1', '192.168.78.1']  # DEBUG TOOLBAR Setup (ip of allowed clients)
 
