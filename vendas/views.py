@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import CreateView
 
 from .models import Venda
+from .forms import VendaForm
 
 
 class DashboardView(View):
@@ -27,3 +29,32 @@ class DashboardView(View):
         dct_['num_ped_nfe'] = objs.num_ped_nfe()
 
         return render(request, 'vendas/dashboard.html', dct_)
+
+
+class NovoPedido(View):
+    def get(self, request):
+        data = {}
+        data['vendaform'] = VendaForm
+        return render(request, 'vendas/novo-pedido.html', data)
+
+    def post(self, request):
+        data = {}
+        data['numero'] = request.POST['numero']
+        data['desconto'] = float("0"+request.POST.get('desconto'))
+        data['venda_id'] = request.POST['venda_id']
+
+        if data['venda_id']:
+            venda = Venda.objects.get(id=data['venda_id'])
+        else:
+            venda = Venda.objects.create(numero=data['numero'],
+                                         desconto=data['desconto'])
+
+        items = venda.itemdopedido_set.all()
+        data['venda_obj'] = venda
+        data['items'] = items
+        return render(request, 'vendas/novo-pedido.html', data)
+
+
+class VendaCreateView(CreateView):
+    model = Venda
+    fields = '__all__'

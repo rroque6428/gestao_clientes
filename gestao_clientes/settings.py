@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',  # Required by django-allauth
     'bootstrapform',
+    'crispy_forms',
 
     'allauth',
     'allauth.account',
@@ -183,3 +184,5 @@ SITE_ID = 1
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

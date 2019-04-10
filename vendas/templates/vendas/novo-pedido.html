@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+    <h1>Novo Pedido</h1>
+
+    <form method="POST" action="{% url 'url_novo_pedido' %}">
+        {% csrf_token %}
+
+        {% if venda_obj %}
+            <h2>Venda #{{ venda_obj.numero }}</h2>
+        {% else %}
+            <h2>Nova Venda</h2>
+        {% endif %}
+        <label for="numero">Numero:</label>
+        <input type="text" name="numero" id="numero" value="{{ venda_obj.numero }}">
+        <br>
+        <label for="desconto">Desconto:</label>
+        <input type="text" name="desconto" id="desconto" value="{{ venda_obj.desconto }}">
+        <input type="hidden" name="venda_id" value="{{ venda_obj.id }}">
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <h2>Itens do Pedido</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Desconto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.produto.descricao }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.desconto }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<!--    <form method="POST">-->
+<!--        {% csrf_token %}-->
+<!--        {{ vendaform | crispy}}-->
+<!--    </form>-->
+{% endblock %}
